@@ -108,7 +108,26 @@ def ruby_talk(in_str)
 				yomi = "あいおーえす"
 				str=yomi
 			end
-
+			if (Moji.zen_to_han(str).downcase=="net") then
+				yomi = "ネット"
+				str=yomi
+			end
+			if (Moji.zen_to_han(str).downcase=="mac") then
+				yomi = "マック"
+				str=yomi
+			end
+			if (Moji.zen_to_han(str).downcase=="linux") then
+				yomi = "りなっくす"
+				str=yomi
+			end
+			if (Moji.zen_to_han(str).downcase=="windows") then
+				yomi = "ウインドーず"
+				str=yomi
+			end
+			if (Moji.zen_to_han(str).downcase=="com") then
+				yomi = "こむ"
+				str=yomi
+			end
 
 	
 		end
@@ -179,6 +198,9 @@ def ruby_talk(in_str)
 	   		if (str == "－" || str == "ー") then
 	   			yomi = "ハイフン"
 	   		end
+			if(str=="＃") then
+				yomi = "しゃーぷ"
+			end
 	   		
 	   		#kakasiがeucじゃないと動かないので変換
 			yomi  = Iconv.conv("eucJP","UTF-8",yomi)
