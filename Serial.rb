@@ -1,6 +1,6 @@
 require "rubygems"
 gem "serialport",">=1.0.4"
-gem "serialport"
+require "serialport"
 class Serial
 #http://blog.goo.ne.jp/dak-ikd/e/56b622830aefd41435bc389c709a3a87‚ğQl‚ÉÀ‘•
 
