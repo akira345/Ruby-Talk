@@ -171,14 +171,13 @@ def ruby_talk(in_str)
 	#debug
 	puts str_serial
 
-	tmp = str_serial.split(/\n/)
 	#
-	sp = Serial.new
-	#
-	tmp.each do |line|
-	#	シリアルポートへ
-		sp.out_msg(line)
-	end
+    Serial.open { |io|
+      lines = str_serial.split(/\n/)
+      io.each do |line|
+        io.write line
+      end
+    }
 end
 
 
