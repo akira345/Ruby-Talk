@@ -40,8 +40,8 @@ class Serial
     # タイミング調整
 	io.write "\r\n"
     # Busy解除までまつ
-	while busy?
-       sleep(0.4)
+     while busy?
+       sleep(1)
        io.write "\r\n"
     end
     sleep(1)

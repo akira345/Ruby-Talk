@@ -73,11 +73,11 @@ def ruby_talk(in_str)
 				}
 			}
 		end
-		#品詞分類１が数字又は文字タイプがアルファベット。ただし上で読みがなを変換している奴は除く
-		if (((Moji.type?(str,Moji::ALPHA)) || ((hinsi_1 == "数") and (!Moji.type?(str,Moji::ZEN_KANJI)))) and (cnv_flg==false)) then 
+		#品詞分類１が数字で漢字以外又はアルファベット。ただし上で読みがなを変換している奴は除く
+		if (((hinsi_1=="アルファベット") || ((hinsi_1 == "数") and (!Moji.type?(str,Moji::ZEN_KANJI)))) and (cnv_flg==false)) then 
 			if (tag_sw == false) then
 				tag_sw = true
-				if (Moji.type?(str,Moji::ALPHA)) then	#一部のアルファベット文字列が固有名詞と判定されるので、品詞情報を参照しない
+				if (hinsi_1=="アルファベット") then
 					buf = "<ALPHA VAL=" + Moji.zen_to_han(str)
 				elsif (hinsi_1 == "数") then	#if (Moji.type?(str,Moji::NUMBER)) then #ドットの解釈が記号か数字か文脈で判断する為未使用
 					buf = "<NUM VAL=" + Moji.zen_to_han(str)
