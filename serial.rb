@@ -38,14 +38,15 @@ class Serial
 
   def write(msg)
     # タイミング調整
-	io.write "\r\n"
+    io.write "\r\n"
     # Busy解除までまつ
      while busy?
        sleep(1)
        io.write "\r\n"
     end
-    sleep(1.5)
+    #sleep(1.5)
     io.write msg + "\r\n"
+    io.write "\r\n"
   end
 
   def close

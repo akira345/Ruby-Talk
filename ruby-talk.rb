@@ -15,7 +15,7 @@ load "serial.rb"
 
 def ruby_talk(in_str)
 	#debug
-	#in_str ="オープンソースカンファレンス 2012 Hiroshima http://www.ospn.jp/osc2012-hiroshima/ 10月20日 広島国際学院大学 中野キャンパス"
+	in_str ="オープンソースカンファレンス 2012 Hiroshima http://www.ospn.jp/osc2012-hiroshima/ 10月20日 広島国際学院大学 中野キャンパス"
 
 	#入力文字を一旦すべて全角にする
 	in_str = Moji.han_to_zen(in_str)
@@ -77,11 +77,11 @@ def ruby_talk(in_str)
 				}
 			}
 		end
-		#品詞分類１が数字で漢字以外又はアルファベット。ただし上で読みがなを変換している奴は除く
-		if (((hinsi_1=="アルファベット") || ((hinsi_1 == "数") and (!Moji.type?(str,Moji::ZEN_KANJI)))) and (cnv_flg==false)) then 
+		#品詞分類１が数字で漢字以外又は文字タイプがアルファベット。ただし上で読みがなを変換している奴は除く
+		if (((Moji.type?(str,Moji::ALPHA)) || ((hinsi_1 == "数") and (!Moji.type?(str,Moji::ZEN_KANJI)))) and (cnv_flg==false)) then 
 			if (tag_sw == false) then
 				tag_sw = true
-				if (hinsi_1=="アルファベット") then
+				if (Moji.type?(str,Moji::ALPHA)) then
 					buf = "<ALPHA VAL=" + Moji.zen_to_han(str)
 				elsif (hinsi_1 == "数") then	#if (Moji.type?(str,Moji::NUMBER)) then #ドットの解釈が記号か数字か文脈で判断する為未使用
 					buf = "<NUM VAL=" + Moji.zen_to_han(str)
@@ -102,36 +102,20 @@ def ruby_talk(in_str)
 				buf = ""
 				tag_sw = false
 			end
-
-			#記号
-			if (hinsi == "記号" and yomi == "") then
-				#記号でかつ読みが不明なものを補足する
-				#アクセント記号は諦めた。
-				#読めない記号は無視
-				File::open("sign_list.txt") {|f|
-					f.each {|line|
-						tmp = line.split(',')
-						if (Moji.zen_to_han(str).downcase == Moji.zen_to_han(tmp[0]).downcase) then
-							yomi = tmp[1]
-							str = yomi
-						end
-					}
+			#品詞分類が記号以外も読みが不明なものを補足するようにした。
+			#記号の読みを補足する。（MeCabの辞書の一部記号は読みのところに記号がそのまま入っているものがある）
+			#アクセント記号は諦めた。
+			#読めない記号は無視
+			File::open("sign_list.txt") {|f|
+				f.each {|line|
+					tmp = line.split(',')
+					if (Moji.zen_to_han(str).downcase == Moji.zen_to_han(tmp[0]).downcase) then
+						yomi = tmp[1].chomp + "/"
+						str = yomi
+					end
 				}
-			end
-			#変換しそこねたものを変換
-			#読みがながある記号で読みに記号が入っているものや、活用形など
-			if (str == "－" || str == "ー") then
-				yomi = "ハイフン"
-			end
-			if(str=="＃") then
-				yomi = "しゃーぷ"
-			end
-			if(str=="♭")then
-				yomi="ふらっと"
-			end
-			if(str=="．" || str==".")then
-				yomi="ドット"
-			end
+			}
+			#特殊なものを変換
 			if(str=="。")then
 				yomi="."
 			end
