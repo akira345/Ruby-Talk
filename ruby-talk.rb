@@ -157,19 +157,8 @@ def ruby_talk(in_str)
 		buf = ""
 		tag_sw = false
 	 end
-	
-	#シリアルポートへ転送
-	str_serial  = str_serial + wk_str_output
-	#debug
-	puts str_serial
 
-	#
-    Serial.open { |io|
-      lines = str_serial.split(/\n/)
-      lines.each do |line|
-        io.write line
-      end
-    }
+	str_serial  = str_serial + wk_str_output
 end
 
 
@@ -177,8 +166,19 @@ end
 c = Twitter::Client.new
 tmp = c.search(:q => '#ruby-test', :lang => 'ja', :rpp => 5)
 tmp.each do |line|
-	puts line.text.gsub(/(\r\n|\r|\n)/," ")
-	ruby_talk(line.text.gsub(/(\r\n|\r|\n)/," "))
+	#debug
+        puts line.text.gsub(/(\r\n|\r|\n)/," ")
+	str_serial = ruby_talk(line.text.gsub(/(\r\n|\r|\n)/," "))
+	#debug
+	puts str_serial
+	#シリアルポートへ転送
+	#
+        Serial.open { |io|
+            lines = str_serial.split(/\n/)
+            lines.each do |line|
+                io.write line
+            end
+        }
 	sleep (5)
 end
 
