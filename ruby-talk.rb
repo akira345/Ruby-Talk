@@ -15,7 +15,7 @@ load "serial.rb"
 
 def ruby_talk(in_str)
 	#debug
-	in_str ="オープンソースカンファレンス 2012 Hiroshima http://www.ospn.jp/osc2012-hiroshima/ 10月20日 広島国際学院大学 中野キャンパス"
+	#in_str ="オープンソースカンファレンス 2012 Hiroshima http://www.ospn.jp/osc2012-hiroshima/ 10月20日 広島国際学院大学 中野キャンパス"
 
 	#入力文字を一旦すべて全角にする
 	in_str = Moji.han_to_zen(in_str)
