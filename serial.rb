@@ -44,7 +44,7 @@ class Serial
        sleep(1)
        io.write "\r\n"
     end
-    sleep(1)
+    sleep(1.5)
     io.write msg + "\r\n"
   end
 

@@ -58,7 +58,11 @@ def ruby_talk(in_str)
 				tag_sw = false
 			end
 		 end
-	
+		#カッコは読めないのでスペースで置換
+		if((hinsi_1=="括弧開") || (hinsi_1=="括弧閉"))then
+			str = "　"
+			yomi = "　"
+		end
 		#いくつかのアルファベット固有名詞の読み
 		if (((hinsi_1=="固有名詞") || (hinsi=="名詞" and hinsi_1=="一般")) and Moji.type?(str,Moji::ALPHA)) then
 			#english_noun_list.txtはCSV形式で"intel","インテル"のようにする。
@@ -137,7 +141,11 @@ def ruby_talk(in_str)
 			if(str=="　" || str==" ")then
 				yomi=" "
 			end
+			#MeCabの辞書に載っていなくて、読みが不明なカタカナ、漢字はkakasiに任せてみる
 
+			if(((yomi=="")||(yomi==nil)) and ((Moji.type?(str,Moji::ZEN_KANJI))||(Moji.type?(str,Moji::KANA)))) then
+				yomi = str
+			end
 			#kakasiがeucじゃないと動かないので変換
 			yomi  = Iconv.conv("eucJP","UTF-8",yomi)
 			#kakasiで漢字かな混じり文をローマ字に変換。読みを変換している点注意(喋らすため）
@@ -146,7 +154,7 @@ def ruby_talk(in_str)
 			wk_str_output = wk_str_output.gsub(/\^/,"-")
 		end
 		#句点があればそこで改行
-		if (str == ".") or (str==",") then
+		if (str == ".") || (str==",") then
 			str_serial = str_serial + wk_str_output + "\n"
 			wk_str_output = ""
 		end

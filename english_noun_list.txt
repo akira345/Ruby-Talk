@@ -16,3 +16,4 @@ com,コム
 unix,ユニックス
 mazda,マツダ
 test,テスト
+pc,ピーシー
