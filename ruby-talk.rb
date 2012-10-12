@@ -39,7 +39,7 @@ def ruby_talk(in_str)
 			next
 		end
 	#debug
-		puts "#{node.surface}\t#{node.feature}"
+	#	puts "#{node.surface}\t#{node.feature}"
 	#形態素解析結果がcsv形式でかえるので分解
 		str_csv = node.feature.split(",")
 		yomi = str_csv[8]
@@ -122,8 +122,10 @@ def ruby_talk(in_str)
 			if(str=="、")then
 				yomi=","
 			end
-			if(str=="　" || str==" ")then
-				yomi=" "
+			#読めない記号はスペースに置換
+			rep_chars=[" ","!",";","_","'"]
+			if (rep_chars.include?(Moji.zen_to_han(str)))then
+				yomi = " "
 			end
 			#MeCabの辞書に載っていなくて、読みが不明なカタカナ、漢字はkakasiに任せてみる
 
@@ -164,13 +166,13 @@ end
 
 #twitterから取得
 c = Twitter::Client.new
-tmp = c.search(:q => '#ruby-test', :lang => 'ja', :rpp => 5)
+tmp = c.search(:q => 'ruby', :lang => 'ja', :rpp => 5)
 tmp.each do |line|
 	#debug
         puts line.text.gsub(/(\r\n|\r|\n)/," ")
 	str_serial = ruby_talk(line.text.gsub(/(\r\n|\r|\n)/," "))
 	#debug
-	puts str_serial
+	#puts str_serial
 	#シリアルポートへ転送
 	#
         Serial.open { |io|

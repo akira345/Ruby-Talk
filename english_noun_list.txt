@@ -17,3 +17,4 @@ unix,ユニックス
 mazda,マツダ
 test,テスト
 google,グーグル
+fukuoka,ふくおか
