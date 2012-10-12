@@ -11,7 +11,7 @@ gem("twitter4r")
 require "twitter"
 require "twitter/console"
 
-load "Serial.rb"
+load "serial.rb"
 
 def ruby_talk(in_str)
 	#debug
@@ -74,7 +74,7 @@ def ruby_talk(in_str)
 			}
 		end
 		#品詞分類１が数字又は文字タイプがアルファベット。ただし上で読みがなを変換している奴は除く
-		if (((Moji.type?(str,Moji::ALPHA)) || (hinsi_1 == "数")) and (cnv_flg==false)) then 
+		if (((Moji.type?(str,Moji::ALPHA)) || ((hinsi_1 == "数") and (!Moji.type?(str,Moji::ZEN_KANJI)))) and (cnv_flg==false)) then 
 			if (tag_sw == false) then
 				tag_sw = true
 				if (Moji.type?(str,Moji::ALPHA)) then	#一部のアルファベット文字列が固有名詞と判定されるので、品詞情報を参照しない
