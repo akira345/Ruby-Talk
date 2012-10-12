@@ -4,8 +4,8 @@ require "serialport"
 
 class Serial
 
-  def self.open(port="/dev/ttyACM0", &block)
-    port = new SerialPort.new(port, 9600, 8, 1,  SerialPort::NONE)
+  def self.open(defport="/dev/ttyACM0", &block)
+    port = new SerialPort.new(defport, 9600, 8, 1,  SerialPort::NONE)
     if block_given?
       block.call port
       port.close
