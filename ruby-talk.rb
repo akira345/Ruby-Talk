@@ -59,10 +59,10 @@ def ruby_talk(in_str)
 			end
 		 end
 		#カッコは読めないのでスペースで置換
-		if((hinsi_1=="括弧開") || (hinsi_1=="括弧閉"))then
-			str = "　"
-			yomi = "　"
-		end
+		#if((hinsi_1=="括弧開") || (hinsi_1=="括弧閉"))then
+		#	str = "　"
+		#	yomi = "　"
+		#end
 		#いくつかのアルファベット固有名詞の読み
 		if (((hinsi_1=="固有名詞") || (hinsi=="名詞" and hinsi_1=="一般")) and Moji.type?(str,Moji::ALPHA)) then
 			#english_noun_list.txtはCSV形式で"intel","インテル"のようにする。
@@ -123,8 +123,11 @@ def ruby_talk(in_str)
 				yomi=","
 			end
 			#読めない記号はスペースに置換
-			rep_chars=[" ","!",";","_","'"]
+			rep_chars=[" ","!",";","_","'","~"]
 			if (rep_chars.include?(Moji.zen_to_han(str)))then
+				yomi = " "
+			end
+			if((yomi!=nil) and (!Moji.type?(yomi,Moji::KANA)))then
 				yomi = " "
 			end
 			#MeCabの辞書に載っていなくて、読みが不明なカタカナ、漢字はkakasiに任せてみる
@@ -166,7 +169,7 @@ end
 
 #twitterから取得
 c = Twitter::Client.new
-tmp = c.search(:q => 'ruby', :lang => 'ja', :rpp => 5)
+tmp = c.search(:q => 'ruby', :lang => 'ja', :rpp => 10)
 tmp.each do |line|
 	#debug
         puts line.text.gsub(/(\r\n|\r|\n)/," ")
