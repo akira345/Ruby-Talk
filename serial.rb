@@ -42,13 +42,10 @@ class Serial
     # Busy解除までまつ
      while busy?
        sleep(0.5)
-      # io.write "\r\n"
     end
-    #sleep(1.5)
-    #io.write "\r\n"
     io.write msg + "\r\n"
-puts msg+"\r\n"
-    #io.write "\r\n"
+    #debug
+    puts msg+"\r\n"
   end
 
   def close

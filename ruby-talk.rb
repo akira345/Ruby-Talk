@@ -23,7 +23,6 @@ def ruby_talk(in_str)
 	wk_str_output = ""
 	sv_hinsi = ""
 	sv_hinsi_1 = ""
-	sv_type = ""
 	buf = ""
 	tag_sw = false
 	str_serial = ""
@@ -48,21 +47,14 @@ def ruby_talk(in_str)
 		str = node.surface
 		#品詞が変わったか
 		if ((sv_hinsi != hinsi) || (sv_hinsi_1 != hinsi_1)) then
-		#if (sv_type != Moji.type(str)) then 
 			sv_hinsi = hinsi
 			sv_hinsi_1 = hinsi_1
-			#sv_type = Moji.type(str)
 			if (tag_sw == true) then
 				wk_str_output = wk_str_output + buf + ">/"
 				buf = ""
 				tag_sw = false
 			end
 		 end
-		#カッコは読めないのでスペースで置換
-		#if((hinsi_1=="括弧開") || (hinsi_1=="括弧閉"))then
-		#	str = "　"
-		#	yomi = "　"
-		#end
 		#いくつかのアルファベット固有名詞の読み
 		if (((hinsi_1=="固有名詞") || (hinsi=="名詞" and hinsi_1=="一般")) and Moji.type?(str,Moji::ALPHA)) then
 			#english_noun_list.txtはCSV形式で"intel","インテル"のようにする。
