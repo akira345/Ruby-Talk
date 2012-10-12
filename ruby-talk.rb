@@ -174,7 +174,7 @@ def ruby_talk(in_str)
 	#
     Serial.open { |io|
       lines = str_serial.split(/\n/)
-      io.each do |line|
+      lines.each do |line|
         io.write line
       end
     }

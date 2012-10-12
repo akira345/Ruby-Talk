@@ -36,7 +36,7 @@ class Serial
     end
   end
 
-  def write(message)
+  def write(msg)
     # タイミング調整
 	io.write "\r\n"
     # Busy解除までまつ
