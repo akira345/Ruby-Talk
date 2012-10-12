@@ -2,10 +2,11 @@ Ruby-Talk
 =========
 RubyでAquesTalkpicoを喋らせてみました。  
 動作環境は以下のとおりです。  
- OS:Linux(Lububtu 12.04)  
+ OS:Linux(LUbutu 12.04)  
 Ruby:1.8.7  
 PCとはシリアルで接続(Arduinoの基板を利用)    
 
+概要：  
 Twitterのハッシュタグを拾って喋ります。  
 発声記号の仕様は  
 http://www.a-quest.com/download/manual/atp3011_datasheet.pdf  
