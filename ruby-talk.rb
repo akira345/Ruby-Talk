@@ -11,7 +11,7 @@ gem("twitter4r")
 require "twitter"
 require "twitter/console"
 
-load "serial.rb"
+load File.dirname(__FILE__) + "/serial.rb"
 
 def ruby_talk(in_str)
 	#debug
@@ -58,7 +58,7 @@ def ruby_talk(in_str)
 		#いくつかのアルファベット固有名詞の読み
 		if (((hinsi_1=="固有名詞") || (hinsi=="名詞" and hinsi_1=="一般")) and Moji.type?(str,Moji::ALPHA)) then
 			#english_noun_list.txtはCSV形式で"intel","インテル"のようにする。
-			File::open("english_noun_list.txt") {|f|
+			File::open(File.dirname(__FILE__) + "/english_noun_list.txt") {|f|
 				f.each {|line|
 					tmp = line.split(',')
 					if (Moji.zen_to_han(str).downcase == Moji.zen_to_han(tmp[0]).downcase) then
@@ -98,7 +98,7 @@ def ruby_talk(in_str)
 			#記号の読みを補足する。（MeCabの辞書の一部記号は読みのところに記号がそのまま入っているものがある）
 			#アクセント記号は諦めた。
 			#読めない記号は無視
-			File::open("sign_list.txt") {|f|
+			File::open(File.dirname(__FILE__) + "/sign_list.txt") {|f|
 				f.each {|line|
 					tmp = line.split(',')
 					if (Moji.zen_to_han(str).downcase == Moji.zen_to_han(tmp[0]).downcase) then
@@ -161,7 +161,7 @@ end
 
 #twitterから取得
 c = Twitter::Client.new
-tmp = c.search(:q => 'ruby', :lang => 'ja', :rpp => 10)
+tmp = c.search(:q => '#osc12hi', :lang => 'ja', :rpp => 10)
 tmp.each do |line|
 	#debug
         puts line.text.gsub(/(\r\n|\r|\n)/," ")
