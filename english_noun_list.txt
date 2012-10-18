@@ -1,3 +1,11 @@
+WebTouchMeeting×Mozilla,ウエブタッチミーティングアンドモジラ
+WebTouchMeeting,ウエブタッチミーティング
+Mozilla,もじら
+PostgreSQL,ポストグレエスキューエル
+mysql,まいえすきゅーえる
+oracle,おらくる
+office,オフィス
+official,オフィシャル
 intel,インテル
 twitter,ツイッター
 city,シティ
