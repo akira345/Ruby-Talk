@@ -1,3 +1,5 @@
+baserCMS,ベーサーシーエムエス
+netbsd,ねっとびーえすでぃー
 WebTouchMeeting×Mozilla,ウエブタッチミーティングアンドモジラ
 WebTouchMeeting,ウエブタッチミーティング
 Mozilla,もじら
